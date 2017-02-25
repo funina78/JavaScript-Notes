@@ -145,3 +145,55 @@ declarations: [] //contains all the components, directive, pipes offered in the 
 imports: []  //import angular2 modules - packges, features.
 bootstrap: []  // indicate the component you want to bootstrap from.
 providers: []  // all the services you want to make available for injection. they are @Injectable().
+
+
+//production deploy:
+1. run: ng build -prod
+2. git add .
+3. git commit -m"ready"
+4. to Deploy, you need the whole /dist folder.
+
+//ng commands
+ng init --name angular2-cli  --prefix ac   //if you already have a folder, cd to the folder and run ng init will init a project
+ng new angular2-cli  // if no folder created yet.
+
+ng build
+ng serve // will build the project and host a server to serve the project, localhost:4200
+ng serve -p 4300  // if you want to run on another port, -p will overwrite the port
+ng lint // find lint error based on the config
+ng test //run unit test
+ng generate component Books  // ng g c Books   -- same thing
+ng g c book --flat -it -is  // will generate a component with inline-template, inline-style in the current folder
+ng destroy component book --flat //will remove the book component
+ng g route bookshelf --lazy // generate a lazy route
+ng build -prod  // build for production bundle for everything needed for production, minify, stripe out the things don't need - get production ready dist folder
+goto root folder | git init | git add . | git commit -m"" | ng github-pages:deploy | need to give a token, how to get it? (line below)
+go to: https://github.com/settings/tokens --> Generate new token --> login --> token description -->public repo checkbox checked --> generate token --> copy the token --> go back to commandline paste the token. --> enter github username --> copy the page link
+ng --help // to see the docs for ng commands.  Or github page for angular cli
+
+//project structure
+/src  -- folder holds components, directives, services
+/src/environments  -- folder holds production and develop environment indicator
+
+inside src folder:
+index.html  -- doesnot contain any script, but will added by angular2 framework dynamically when builds the project
+main.ts  -- bootstrap/starts the angular2 application.
+polyfills.ts   -- imports core-js and zone.js our application needs. this file is imported by main.ts, so these core/zone js file will be included in our bundle
+style.css  --- you can add global style here
+test.ts   -- use to run your tests, normally do not need to change anything here.
+tsconfig.json -- config our typescript compiler, normallt do not need to change anything here
+typings.d.ts   -- decalre the type when typescript don not know what type
+
+/dist --  holds our compiled project
+main.bundle  -- project code + angular2 framework + all dependencies code
+style.bundle -- bundle of our styles
+inline.bundle  --  webpack to have our application run correctly
+
+/e2e   - End to End testing folder
+
+At root folder:
+angular-cli.json  -- config angular cli
+karma.conf.js  -- unit test config using karma as test runner
+protractor.conf.js -- config for e2e test
+package.json  --  all the dependencies for this project
+tslint.json  -- define the linting of project
